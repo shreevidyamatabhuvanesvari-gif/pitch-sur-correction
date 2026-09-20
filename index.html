@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#08111f">
+<title>Pitch / Sur Correction</title>
+<style>
+:root{color-scheme:dark;--bg:#07101d;--panel:#0d1a2b;--line:#243a55;--text:#eef5ff;--muted:#8fa6c0;--accent:#4aa8ff;--ok:#35d780}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -10%,#173256 0,#07101d 48%);font:500 16px/1.4 system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text)}
+.app{width:min(1080px,100%);margin:auto;padding:18px 14px 28px}.header{display:flex;align-items:center;gap:14px;padding:16px 4px 20px}.logo{font-size:34px}.header h1{margin:0;font-size:clamp(24px,5vw,36px);letter-spacing:.02em}.header p{margin:4px 0 0;color:var(--muted)}
+.card{background:linear-gradient(145deg,#0f2034,#0a1524);border:1px solid var(--line);border-radius:18px;box-shadow:0 16px 40px #0005;margin-top:14px}.stage{position:relative;overflow:hidden;aspect-ratio:16/9;background:#020711;border-radius:18px}.stage:fullscreen{width:100vw;height:100vh;border-radius:0;background:#000;display:grid;place-items:center}.stage:fullscreen video{max-height:100vh}.video{width:100%;height:100%;display:block;object-fit:contain;background:#020711}.empty{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}.empty div{padding:18px;text-align:center;color:var(--muted)}
+.controls{padding:16px}.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.label{display:block;color:var(--muted);font-size:14px;margin-bottom:8px}.upload{display:flex;align-items:center;justify-content:space-between;gap:14px}.file-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.input{position:absolute;inline-size:1px;block-size:1px;opacity:0;pointer-events:none}
+button{border:1px solid var(--line);border-radius:12px;background:#16263a;color:var(--text);padding:12px 16px;min-height:48px;font:700 15px inherit;cursor:pointer;transition:.18s transform,.18s border-color,.18s background}button:active{transform:scale(.98)}button:hover{border-color:#456a92}.primary{background:linear-gradient(135deg,#2b95ff,#5a50ff);border-color:transparent}.danger{background:#1c2b3d}.mode{flex:1;min-width:100px}.mode.active{outline:2px solid var(--accent);background:#14385a}.actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}.status{display:flex;align-items:center;gap:9px;color:var(--muted);min-height:24px}.dot{width:10px;height:10px;border-radius:50%;background:#65768d}.dot.ok{background:var(--ok);box-shadow:0 0 14px #35d78066}.privacy{text-align:center;color:#7087a2;font-size:13px;padding:14px 4px 0}.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:640px){.app{padding:10px 10px 20px}.header{padding:10px 2px 14px}.logo{font-size:28px}.header p{font-size:13px}.upload{align-items:stretch;flex-direction:column}.actions{grid-template-columns:1fr 1fr}.actions button:last-child{grid-column:1/-1}.controls{padding:13px}.row{gap:9px}.mode{min-width:0}}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="header"><div class="logo" aria-hidden="true">🎼</div><div><h1>PITCH / SUR CORRECTION</h1><p>Automatic local pitch correction for singing and voiced audio.</p></div></header>
+<section class="card stage" id="stage">
+<video id="video" class="video" controls playsinline preload="metadata"></video>
+<div id="empty" class="empty"><div><strong>Select a video to begin.</strong><br>Audio processing stays on this device.</div></div>
+</section>
+<section class="card controls">
+<div class="upload"><div><span class="label">Video</span><div id="fileName" class="file-name">No video selected</div><input id="file" class="input" type="file" accept="video/*"></div><button id="choose" class="primary" type="button">Choose Video</button></div>
+<div style="margin-top:16px"><span class="label">Correction Strength</span><div class="row" id="modes"><button class="mode" data-mode="light" type="button">Light</button><button class="mode active" data-mode="medium" type="button">Medium</button><button class="mode" data-mode="strong" type="button">Strong</button></div></div>
+<div style="margin-top:16px" class="actions"><button id="play" class="primary" type="button">▶ Play</button><button id="stop" class="danger" type="button">■ Stop</button><button id="full" type="button">⛶ Full Screen</button></div>
+<div style="margin-top:15px" class="status"><span id="dot" class="dot"></span><span id="status" aria-live="polite">Ready — Select a video</span></div>
+<div class="privacy">Local Processing &nbsp;•&nbsp; No Upload &nbsp;•&nbsp; No Download</div>
+</section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
